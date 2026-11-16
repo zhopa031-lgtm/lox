@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLOWDESK — демо системы управления заявками | Верстак</title>
+  <meta name="description" content="Интерактивная демонстрация FLOWDESK: система управления заявками и записями для обслуживания промышленного оборудования. Концептуальный проект студии «Верстак».">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="../css/flowdesk.css">
+</head>
+<body>
+  <!-- Верхняя полоса возврата в портфолио -->
+  <div class="backbar">
+    <a class="bb-left" href="../index.html" data-wipe="1">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H3M7 3.5 2.5 8 7 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Верстак — портфолио
+    </a>
+    <span class="bb-center">FLOWDESK · демонстрационный проект · данные тестовые</span>
+    <a class="btn-lime" href="../index.html?project=flowdesk#contacts" data-wipe="1">Обсудить похожий проект</a>
+  </div>
+
+  <div class="app">
+    <!-- Боковая панель -->
+    <aside class="sidebar">
+      <div class="sb-logo">
+        <span class="sb-logo-mark"></span>
+        FLOWDESK
+        <span class="sb-logo-sub">сервис · промышленность</span>
+      </div>
+      <nav class="sb-nav" aria-label="Разделы системы">
+        <button class="sb-item" data-view="dashboard">
+          <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="2" width="6" height="7" rx="1.2" stroke-width="1.5"/><rect x="10" y="2" width="6" height="4" rx="1.2" stroke-width="1.5"/><rect x="10" y="8" width="6" height="8" rx="1.2" stroke-width="1.5"/><rect x="2" y="11" width="6" height="5" rx="1.2" stroke-width="1.5"/></svg>
+          Дашборд
+        </button>
+        <button class="sb-item is-active" data-view="requests">
+          <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 4.5h9M3 9h12M3 13.5h7" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Заявки
+          <span class="sb-badge" id="sbReqCount">0</span>
+        </button>
+        <button class="sb-item" data-view="calendar">
+          <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="3" width="14" height="13" rx="1.5" stroke-width="1.5"/><path d="M2 7h14M6 1.5V4M12 1.5V4" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Календарь
+        </button>
+        <button class="sb-item" data-view="clients">
+          <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="6.5" cy="6" r="2.6" stroke-width="1.5"/><path d="M2 15c.6-3 2.4-4.4 4.5-4.4S10.4 12 11 15" stroke-width="1.5" stroke-linecap="round"/><path d="M12 5.8a2.4 2.4 0 0 1 0 4.6M13.4 14.9c-.2-1.6-.8-2.9-1.7-3.7 1.9-.5 3.6.6 4.3 3.7" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Клиенты
+        </button>
+      </nav>
+      <div class="sb-foot">
+        <div class="sb-demo-card">
+          <b>Демо-режим</b>
+          <span>Изменения живут только в этой сессии браузера.</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Основная область -->
+    <div class="main">
+      <header class="topbar">
+        <div class="tb-titles">
+          <h1 id="viewTitle">Заявки</h1>
+          <p id="viewSub">Управление заявками на обслуживание</p>
+        </div>
+        <div class="tb-actions">
+          <button class="tb-btn" id="btnCreate">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Создать заявку
+          </button>
+          <div class="notif-wrap">
+            <button class="tb-btn tb-icon" id="btnNotif" aria-label="Уведомления">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 8a5 5 0 0 1 10 0c0 3 .8 4.2 1.5 5h-13C3.2 12.2 4 11 4 8Z" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 15.5a1.6 1.6 0 0 0 3 0" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span class="notif-badge" id="notifBadge">3</span>
+            </button>
+            <div class="notif-panel" id="notifPanel" hidden>
+              <div class="np-head">
+                <b>Уведомления</b>
+                <button id="notifReadAll">Прочитать все</button>
+              </div>
+              <div class="np-list" id="notifList"></div>
+            </div>
+          </div>
+          <div class="avatar" title="Александр Соколов — сервисный инженер">АС</div>
+        </div>
+      </header>
+
+      <!-- ===== ДАШБОРД ===== -->
+      <section class="view" id="view-dashboard" hidden>
+        <div class="kpi-grid" id="kpiGrid"></div>
+        <div class="dash-row">
+          <div class="card card-grow">
+            <div class="card-head">
+              <h2>Визиты по дням</h2>
+              <span class="card-hint">ближайшие 14 дней</span>
+            </div>
+            <div class="bar-chart" id="dashChart"></div>
+          </div>
+          <div class="card card-sm">
+            <div class="card-head"><h2>По статусам</h2></div>
+            <div class="stack-bar" id="dashStack"></div>
+            <div class="legend" id="dashLegend"></div>
+          </div>
+        </div>
+        <div class="dash-row">
+          <div class="card">
+            <div class="card-head">
+              <h2>Ближайшие визиты</h2>
+              <button class="card-link" data-goto="calendar">Открыть календарь →</button>
+            </div>
+            <ul class="mini-list" id="dashVisits"></ul>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h2>Последние заявки</h2>
+              <button class="card-link" data-goto="requests">Все заявки →</button>
+            </div>
+            <ul class="mini-list" id="dashLatest"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ЗАЯВКИ ===== -->
+      <section class="view" id="view-requests" hidden>
+        <div class="toolbar">
+          <label class="search-box">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.4" stroke="currentColor" stroke-width="1.5"/><path d="m10.5 10.5 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <input type="search" id="reqSearch" placeholder="Клиент, оборудование, номер…" aria-label="Поиск по заявкам">
+          </label>
+          <div class="chips" id="statusChips"></div>
+        </div>
+        <div class="table-card">
+          <div class="table-scroll">
+            <table class="req-table" id="reqTable">
+              <thead>
+                <tr><th>Заявка</th><th>Клиент</th><th>Оборудование</th><th>Тип работ</th><th>Визит</th><th>Приоритет</th><th>Статус</th><th></th></tr>
+              </thead>
+              <tbody id="reqBody"></tbody>
+            </table>
+          </div>
+          <div class="table-empty" id="reqEmpty" hidden>
+            <b>Ничего не найдено</b>
+            <span>Измените фильтры или поисковый запрос</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== КАЛЕНДАРЬ ===== -->
+      <section class="view" id="view-calendar" hidden>
+        <div class="cal-head">
+          <div class="cal-nav">
+            <button class="cal-btn" id="calPrev" aria-label="Предыдущий месяц">←</button>
+            <b id="calTitle">Ноябрь 2026</b>
+            <button class="cal-btn" id="calNext" aria-label="Следующий месяц">→</button>
+            <button class="cal-btn cal-today" id="calToday">Сегодня</button>
+          </div>
+          <div class="cal-legend">
+            <span><i class="lg lg-new"></i>Новая</span>
+            <span><i class="lg lg-work"></i>В работе</span>
+            <span><i class="lg lg-wait"></i>Запчасти</span>
+            <span><i class="lg lg-done"></i>Выполнена</span>
+          </div>
+        </div>
+        <div class="cal-grid-wrap card">
+          <div class="cal-week">
+            <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+      </section>
+
+      <!-- ===== КЛИЕНТЫ ===== -->
+      <section class="view" id="view-clients" hidden>
+        <div class="clients-grid" id="clientsGrid"></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Затемнение -->
+  <div class="scrim" id="scrim" hidden></div>
+
+  <!-- Выдвижная карточка -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <b id="drawerTitle">Карточка</b>
+      <button class="drawer-close" id="drawerClose" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </aside>
+
+  <!-- Модальное окно создания/редактирования -->
+  <div class="modal-wrap" id="reqModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <b id="modalTitle">Новая заявка</b>
+        <button class="drawer-close" id="modalClose" aria-label="Закрыть">✕</button>
+      </div>
+      <form class="modal-form" id="reqForm">
+        <div class="mf-row">
+          <label>Клиент
+            <select name="client" id="mfClient" required></select>
+          </label>
+          <label>Тип работ
+            <select name="workType" id="mfWork">
+              <option>Диагностика</option>
+              <option>Плановое ТО</option>
+              <option>Ремонт</option>
+              <option>Модернизация</option>
+              <option>Установка</option>
+            </select>
+          </label>
+        </div>
+        <div class="mf-row">
+          <label>Оборудование
+            <input name="equipment" id="mfEquipment" type="text" placeholder="Например: насос центробежный" required>
+          </label>
+          <label>Модель / заводской №
+            <input name="model" id="mfModel" type="text" placeholder="Например: К-290/18-01">
+          </label>
+        </div>
+        <div class="mf-row">
+          <label>Дата визита
+            <input name="visit" id="mfVisit" type="date" required>
+          </label>
+          <label>Приоритет
+            <select name="priority" id="mfPriority">
+              <option>Обычный</option>
+              <option>Высокий</option>
+              <option>Критический</option>
+            </select>
+          </label>
+        </div>
+        <label>Описание задачи
+          <textarea name="description" id="mfDesc" rows="3" placeholder="Что случилось и что нужно сделать"></textarea>
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn-soft" id="modalCancel">Отмена</button>
+          <button type="submit" class="btn-blue" id="modalSave">Сохранить заявку</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Тосты -->
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/flowdesk.js" defer></script>
+</body>
+</html>

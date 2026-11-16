@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRAMEPORT — демо клиентского портала фотографа | Верстак</title>
+  <meta name="description" content="Интерактивная демонстрация FRAMEPORT: персональный клиентский портал для фотографов и фотостудий. Концептуальный проект студии «Верстак».">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../css/fonts.css">
+  <link rel="stylesheet" href="../css/frameport.css">
+</head>
+<body>
+  <div class="backbar">
+    <a class="bb-left" href="../index.html" data-wipe="1">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M14 8H3M7 3.5 2.5 8 7 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Верстак — портфолио
+    </a>
+    <span class="bb-center">FRAMEPORT · демонстрационный проект · фотографии сгенерированы для демо</span>
+    <a class="btn-lime" href="../index.html?project=frameport#contacts" data-wipe="1">Обсудить похожий проект</a>
+  </div>
+
+  <!-- Шапка портала -->
+  <header class="fp-header">
+    <div class="fp-studio">
+      <span class="fp-studio-name">Марина Ветрова</span>
+      <span class="fp-studio-sub">студия фотографии · Екатеринбург</span>
+    </div>
+    <div class="fp-head-right">
+      <span class="fp-client-badge">Галерея для клиента: Анна К.</span>
+      <button class="fp-fav-counter" id="favJump">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13.5C4.6 11 2.5 8.8 2.5 6.4 2.5 4.7 3.9 3.5 5.5 3.5c1 0 2 .5 2.5 1.4C8.5 4 9.5 3.5 10.5 3.5c1.6 0 3 1.2 3 2.9 0 2.4-2.1 4.6-5.5 7.1Z" stroke="currentColor" stroke-width="1.3"/></svg>
+        Избранное · <b id="favHeaderCount">0</b>
+      </button>
+    </div>
+  </header>
+
+  <!-- Титул съёмки -->
+  <section class="fp-hero">
+    <div class="fp-hero-left">
+      <span class="fp-eyebrow">Персональная галерея · ссылка отправлена фотографом</span>
+      <h1 class="fp-title">Осенний <em>портрет</em></h1>
+      <p class="fp-hero-meta">
+        <span>12 октября 2026</span><i>·</i>
+        <span>парк «Харовитский», 2 часа</span><i>·</i>
+        <span>34 кадра после первого отбора фотографа</span>
+      </p>
+    </div>
+    <div class="fp-status-card">
+      <span class="fp-status-label">Статус заказа</span>
+      <div class="fp-status-steps">
+        <div class="fp-step is-done">
+          <span class="fp-step-dot"></span>
+          <b>Съёмка</b>
+          <small>завершена 12.10</small>
+        </div>
+        <div class="fp-step is-done">
+          <span class="fp-step-dot"></span>
+          <b>Первый отбор</b>
+          <small>34 из 214 кадров</small>
+        </div>
+        <div class="fp-step is-active">
+          <span class="fp-step-dot"></span>
+          <b>Отбор клиентом</b>
+          <small id="stepFavNote">выберите понравившиеся кадры ♥</small>
+        </div>
+        <div class="fp-step">
+          <span class="fp-step-dot"></span>
+          <b>Ретушь</b>
+          <small>после вашего отбора</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Фильтры -->
+  <nav class="fp-filters" aria-label="Фильтры галереи">
+    <button class="fp-filter is-on" data-f="all">Все <b>14</b></button>
+    <button class="fp-filter" data-f="портрет">Портрет <b>4</b></button>
+    <button class="fp-filter" data-f="студия">Студия <b>4</b></button>
+    <button class="fp-filter" data-f="улица">Улица <b>3</b></button>
+    <button class="fp-filter" data-f="детали">Детали <b>3</b></button>
+    <button class="fp-filter fp-filter-fav" data-f="fav">♥ Избранное <b id="favFilterCount">0</b></button>
+  </nav>
+
+  <!-- Галерея -->
+  <main class="fp-gallery" id="gallery" aria-label="Фотогалерея"></main>
+  <div class="fp-empty" id="galleryEmpty" hidden>
+    <em>Здесь пока пусто</em>
+    <span>Отметьте фотографии сердечком — они соберутся здесь</span>
+  </div>
+
+  <!-- О съёмке -->
+  <section class="fp-about">
+    <div class="fp-about-col">
+      <h2 class="fp-h2">О <em>съёмке</em></h2>
+      <ul class="fp-facts">
+        <li><span>Фотограф</span><b>Марина Ветрова</b></li>
+        <li><span>Клиент</span><b>Анна К.</b></li>
+        <li><span>Дата и время</span><b>12 октября 2026, 15:00–17:00</b></li>
+        <li><span>Локация</span><b>парк «Харовитский» + 2 уличные локации</b></li>
+        <li><span>Пакет</span><b>«Осень» — 2 часа, 30+ кадров в ретуши</b></li>
+        <li><span>Отбор</span><b>выберите до 15 кадров для ретуши</b></li>
+      </ul>
+    </div>
+    <div class="fp-about-col">
+      <h2 class="fp-h2">Как это <em>работает</em></h2>
+      <ul class="fp-how">
+        <li><b>1</b><span>Отмечайте сердечком кадры, которые нравятся — выбор сохраняется в этой галерее.</span></li>
+        <li><b>2</b><span>Нажмите «Отправить выбор» — фотограф увидит список и начнёт ретушь.</span></li>
+        <li><b>3</b><span>Готовые материалы появятся в разделе «Получение материалов» с уведомлением.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Получение материалов -->
+  <section class="fp-delivery">
+    <div class="fp-delivery-main">
+      <h2 class="fp-h2">Получение <em>материалов</em></h2>
+      <p class="fp-delivery-note">Архив будет доступен после завершения ретуши выбранных кадров. RAW-исходники входят в пакет «Осень».</p>
+    </div>
+    <div class="fp-delivery-card">
+      <div class="fpd-row"><span>Формат</span><b>JPEG (ретушь) + RAW</b></div>
+      <div class="fpd-row"><span>Объём архива</span><b>≈ 4,2 ГБ</b></div>
+      <div class="fpd-row"><span>Срок готовности</span><b>5 рабочих дней после отбора</b></div>
+      <div class="fpd-row"><span>Статус</span><b id="deliveryStatus">ожидание отбора клиента</b></div>
+      <button class="fp-download" id="btnDownload" disabled title="Станет доступно после ретуши">Скачать архив</button>
+      <small class="fp-download-note">В демо-режиме скачивание отключено</small>
+    </div>
+  </section>
+
+  <!-- История заказов -->
+  <section class="fp-history">
+    <h2 class="fp-h2">История <em>заказов</em></h2>
+    <div class="fp-history-table">
+      <div class="fph-row fph-head"><span>Съёмка</span><span>Дата</span><span>Материалы</span><span>Статус</span></div>
+      <div class="fph-row"><span><b>Семейная прогулка</b><small>семья А. и Л. Мельниковы</small></span><span>14 марта 2026</span><span>41 кадр</span><span><i class="fp-badge is-done">выполнена</i></span></div>
+      <div class="fph-row"><span><b>Бизнес-портрет</b><small>для консалт-бюро «Точка»</small></span><span>9 июня 2026</span><span>18 кадров</span><span><i class="fp-badge is-done">выполнена</i></span></div>
+      <div class="fph-row"><span><b>Репетиция спектакля</b><small>театр «Свободная сцена»</small></span><span>2 сентября 2026</span><span>27 кадров</span><span><i class="fp-badge is-done">выполнена</i></span></div>
+      <div class="fph-row is-current"><span><b>Осенний портрет</b><small>Анна К. — текущая съёмка</small></span><span>12 октября 2026</span><span>34 кадра</span><span><i class="fp-badge is-work">в работе</i></span></div>
+    </div>
+  </section>
+
+  <footer class="fp-footer">
+    <span>© 2026 Студия Марины Ветровой · галерея работает на FRAMEPORT</span>
+    <span>Демонстрационный проект студии «Верстак» · тестовые данные</span>
+  </footer>
+
+  <!-- Нижняя панель избранного -->
+  <div class="fp-favbar" id="favbar" hidden>
+    <span class="fp-favbar-text">Выбрано: <b id="favbarCount">0</b> из 15</span>
+    <div class="fp-favbar-actions">
+      <button class="fp-favbar-btn fp-favbar-clear" id="favClear">Очистить</button>
+      <button class="fp-favbar-btn fp-favbar-send" id="favSend">Отправить выбор фотографу</button>
+    </div>
+  </div>
+
+  <!-- Лайтбокс -->
+  <div class="fp-lightbox" id="lightbox" hidden aria-modal="true" role="dialog" aria-label="Просмотр фотографии">
+    <button class="fpl-close" id="lbClose" aria-label="Закрыть">✕</button>
+    <button class="fpl-arrow fpl-prev" id="lbPrev" aria-label="Предыдущее фото">←</button>
+    <figure class="fpl-stage">
+      <img id="lbImg" src="" alt="">
+      <figcaption class="fpl-caption">
+        <span id="lbCaption"></span>
+        <span id="lbCounter"></span>
+      </figcaption>
+    </figure>
+    <button class="fpl-arrow fpl-next" id="lbNext" aria-label="Следующее фото">→</button>
+    <button class="fpl-fav" id="lbFav" aria-label="Добавить в избранное">
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 13.5C4.6 11 2.5 8.8 2.5 6.4 2.5 4.7 3.9 3.5 5.5 3.5c1 0 2 .5 2.5 1.4C8.5 4 9.5 3.5 10.5 3.5c1.6 0 3 1.2 3 2.9 0 2.4-2.1 4.6-5.5 7.1Z" stroke="currentColor" stroke-width="1.3"/></svg>
+      <span id="lbFavText">В избранное</span>
+    </button>
+  </div>
+
+  <script src="../js/frameport.js" defer></script>
+</body>
+</html>
